@@ -22,7 +22,6 @@ export default class Linky extends Component {
 
         //if no page give default to page 1
         (page) ?store.dispatch(addCurrentPage(page)): this.props.history.push('/linky?page=1');
-        
     }
 
     render() {
@@ -33,7 +32,7 @@ export default class Linky extends Component {
                
                <div className="container">
                     <div className="row">
-                    <Links/>
+                    <Links history={this.props.history}/>
                     <Tags history={this.props.history}/>
                     </div>
                 </div>

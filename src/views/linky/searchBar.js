@@ -1,9 +1,27 @@
-import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import React, { Component } from 'react'
 
-// import {  } from '../../actions';
 
-export default class SearchBar extends Component {
+import { addQueryString } from '../../actions/pageInfo';
+
+ class SearchBar extends Component {
+
+    handleChange=event=>{
+    this.props.addQueryString(event.target.value);
+    }
+
+    searchButtonPressHandler=()=>{
+        this.props.history.push(`/linky?page=1&q=${this.props.queryString.replace(' ','%20')}`)
+    }
+
+    keyPressHandler=event=>{
+        console.log(event)
+        if (event.key === 'Enter') {
+            console.log('enterpressed')
+         this.searchButtonPressHandler(); 
+        }  
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -13,11 +31,15 @@ export default class SearchBar extends Component {
                                     className="search-box__icon left"
                                     src={require("../../assets/search-icon.svg")}
                                     alt="Search"
+                                    onClick={this.searchButtonPressHandler}
                                 />
                                 <input
                                     className="search-box__placeholder-tags left"
-                                    type="text"
+                                   value={this.props.queryString}
                                     placeholder="Enter search query"
+                                    onChange={this.handleChange}
+                                    preventDefault 
+                                    onKeyDown={this.keyPressHandler}
                                 />
                             </form>
                         </div>
@@ -25,3 +47,15 @@ export default class SearchBar extends Component {
         )
     }
 }
+
+const mapStateToProps = ({ pageInfo}) => ({
+    queryString: pageInfo.q,
+  });
+  
+  const mapDispatchToProps = dispatch => ({
+    addQueryString: currentString => { dispatch(addQueryString(currentString)) }
+  });
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
+  
+  

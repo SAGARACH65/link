@@ -29,7 +29,7 @@ async componentDidMount(){
     <div className="block-set">
       <div className="block-set__header">
         <h3 className="left">Links</h3>
-<SearchBar/>
+<SearchBar history={this.props.history}/>
       </div>
      
       <div className="block-set__content">
