@@ -1,25 +1,20 @@
-
-import {
-    ADD_TAGS
-} from '../actions/tags';
+import { ADD_TAGS } from "../actions/tags";
 
 const INITIAL_STATE = {
-tags:[]
+  tags: []
 };
 
 const tags = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+    case ADD_TAGS:
+      return {
+        ...state,
+        tags: [...action.payload.tags]
+      };
 
-    switch (action.type) {
-
-        case ADD_TAGS:
-            return {
-                ...state,
-                tags: [...action.payload.tags]
-            };
-
-        default:
-            return state;
-    }
-}
+    default:
+      return state;
+  }
+};
 
 export default tags;

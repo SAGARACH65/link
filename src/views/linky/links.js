@@ -1,68 +1,80 @@
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import React, { Component } from "react";
 
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import React, { Component } from 'react';
+import SearchBar from "./searchBar";
+import LinkDetails from "./linkDetails";
 
-import SearchBar from './searchBar';
-import LinkDetails from './linkDetails'
+import { getAllLinks } from "../../utils/api";
+import { addLinks } from "../../actions/links";
+import { addCurrentPage } from "../../actions/pageInfo";
 
-import {getAllLinks} from '../../utils/api'
-import { addLinks } from '../../actions/links';
-
- class Links extends Component {
-
+class Links extends Component {
   static propTypes = {
-    addLinks: PropTypes.func.isRequired, 
-    links: PropTypes.array.isRequired, 
-}
+    addLinks: PropTypes.func.isRequired,
+    links: PropTypes.array.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    addCurrentPage: PropTypes.func.isRequired
+  };
 
-async componentDidMount(){
-  const response =await getAllLinks();
-  this.props.addLinks(response.data);
+  async fetchData(currentPage) {
+    const response = await getAllLinks(currentPage);
+    this.props.addLinks(response.data);
   }
 
-    render() {
-     
-        return (
-<React.Fragment>
-<div className="col-lg-links col-sm-12">
-    <div className="block-set">
-      <div className="block-set__header">
-        <h3 className="left">Links</h3>
-<SearchBar history={this.props.history}/>
-      </div>
-     
-      <div className="block-set__content">
-        <ul className="block-set__list">
-          {/* <li>
-            <div className="left block-set__list--left">Status</div>
-            <div className="left block-set__list--right">
-              <span className="icon-status icon-status--green"></span>Healthy
+  componentDidMount() {
+    this.fetchData(this.props.currentPage);
+  }
+
+  clickHandler = () => {
+    this.props.addCurrentPage();
+    this.fetchData(this.props.currentPage + 1);
+  };
+
+  render() {
+    return (
+      <React.Fragment>
+        <div className="col-lg-links col-sm-12">
+          <div className="block-set">
+            <div className="block-set__header">
+              <h3 className="left">Links</h3>
+              <SearchBar history={this.props.history} />
             </div>
-          </li>  
-           */}
-           {this.props.links.map(link => (
-       <LinkDetails key={link.id } link={link}/>
-          ))}
 
-        </ul>
-      </div>
-
-    </div>
-  </div>
- 
-</React.Fragment>
-        )
-    }
+            <div className="block-set__content">
+              <ul className="block-set__list">
+                {this.props.links.map(link => (
+                  <LinkDetails key={link.id} link={link} />
+                ))}
+              </ul>
+            </div>
+            {this.props.links.length % 5 === 0 && (
+              <p className="see-more-text" onClick={this.clickHandler}>
+                See More..
+              </p>
+            )}
+          </div>
+        </div>
+      </React.Fragment>
+    );
+  }
 }
 
-const mapStateToProps = ({ links}) => ({
+const mapStateToProps = ({ links, pageInfo }) => ({
   links: links.links,
+  currentPage: pageInfo.currentPage
 });
 
 const mapDispatchToProps = dispatch => ({
-  addLinks: links => { dispatch(addLinks(links)) }
+  addLinks: links => {
+    dispatch(addLinks(links));
+  },
+  addCurrentPage: currentPage => {
+    dispatch(addCurrentPage(currentPage));
+  }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Links);
-
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Links);

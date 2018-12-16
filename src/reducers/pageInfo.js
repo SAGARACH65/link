@@ -1,42 +1,39 @@
-
 import {
-    ADD_QUERY_TAG,
-    ADD_QUERY_STRING,
-    ADD_CURRENT_PAGE
-} from '../actions/pageInfo';
+  ADD_QUERY_TAG,
+  ADD_QUERY_STRING,
+  ADD_CURRENT_PAGE
+} from "../actions/pageInfo";
 
 const INITIAL_STATE = {
-currentpage:1,
-tag:'',
-//q is the query string
-q:''
+  currentPage: 1,
+  tag: undefined,
+  //q is the query string
+  q: undefined
 };
 
 const pageInfo = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+    case ADD_QUERY_TAG:
+      return {
+        ...state,
+        tag: action.payload.queryTag
+      };
 
-    switch (action.type) {
+    case ADD_QUERY_STRING:
+      return {
+        ...state,
+        q: action.payload.queryString
+      };
 
-        case ADD_QUERY_TAG:
-            return {
-                ...state,
-                tag: action.payload.queryTag
-            };
+    case ADD_CURRENT_PAGE:
+      return {
+        ...state,
+        currentPage: action.payload.currentPage
+      };
 
-        case ADD_QUERY_STRING:
-            return {
-                ...state,
-                q: action.payload.queryString
-            };
-
-        case ADD_CURRENT_PAGE:
-            return {
-                ...state,
-                currentPage: action.payload.currentPage
-            };
-
-        default:
-            return state;
-    }
-}
+    default:
+      return state;
+  }
+};
 
 export default pageInfo;

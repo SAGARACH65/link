@@ -1,25 +1,20 @@
-
-import {
-    ADD_LINKS
-} from '../actions/links';
+import { ADD_LINKS } from "../actions/links";
 
 const INITIAL_STATE = {
-links:[]
+  links: []
 };
 
 const tags = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+    case ADD_LINKS:
+      return {
+        ...state,
+        links: [...state.links, ...action.payload.links]
+      };
 
-    switch (action.type) {
-
-        case ADD_LINKS:
-            return {
-                ...state,
-                links:[...action.payload.links]
-            };
-
-        default:
-            return state;
-    }
-}
+    default:
+      return state;
+  }
+};
 
 export default tags;
