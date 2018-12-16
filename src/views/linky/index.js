@@ -19,6 +19,7 @@ export default class Linky extends Component {
         if(q) store.dispatch(addQueryString(q));
         if(tag) store.dispatch(addQueryTag(tag));
        
+
         //if no page give default to page 1
         (page) ?store.dispatch(addCurrentPage(page)): this.props.history.push('/linky?page=1');
         
@@ -33,7 +34,7 @@ export default class Linky extends Component {
                <div className="container">
                     <div className="row">
                     <Links/>
-                    <Tags/>
+                    <Tags history={this.props.history}/>
                     </div>
                 </div>
 

@@ -12,11 +12,17 @@ import {getAllTags} from '../../utils/api'
 import {  addTags} from '../../actions/tags';
 
 
- class Tags extends Component {
+
+class Tags extends Component {
 
   static propTypes = {
     addTags: PropTypes.func.isRequired, 
     tags: PropTypes.array.isRequired, 
+}
+
+onPressHandler=tag=>{
+  this.props.history.push(`/linky?page=1&tag=${tag.replace(' ','%20')}`)
+
 }
 
 async componentDidMount(){
@@ -39,7 +45,13 @@ this.props.addTags(response.data)
 
       <div className="block-set__content">
       {this.props.tags.map(tag => (
-         <button className="tag tag-linky tag--xsm tag-linky--xsm" key={tag.id}>{tag.tag}</button>
+         <button
+          className="tag tag-linky tag--xsm tag-linky--xsm" 
+          key={tag.id}
+          onClick={() => this.onPressHandler(tag.tag)}
+          >
+          {tag.tag}
+          </button>
           ))}
       </div>
 

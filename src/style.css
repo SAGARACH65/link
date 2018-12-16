@@ -786,9 +786,38 @@ hr {
   display: table;
 }
 
-.link-details {
+.link-details-container {
   padding: 10px 0;
   border-bottom: 1px solid #E6ECEF;
+}
+
+.link-details{
+  margin:4px;
+}
+
+.link-details-title{
+  color: #4F4F4F;
+  font-weight: 700;
+font-size: 16px;
+}
+
+.link-details-title:hover{
+  color: #03A9F4;
+}
+
+.link-details-posted-by{
+  font-size: 14px;
+  color: #828282;
+}
+
+.link-details-description{
+  font-size: 14px;
+  color: #828282;
+}
+
+.link-details-text{
+  display:inline-block;
+  margin-left:20px;
 }
 
 .container:after {
@@ -1965,6 +1994,11 @@ input, button {
 .scrollable-content {
   height: 365px;
   overflow-y: auto;
+}
+
+.link-details-image{
+  height:40px;
+  margin-top:10px;
 }
 
 .text--center {
