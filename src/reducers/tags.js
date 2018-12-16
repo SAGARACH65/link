@@ -12,10 +12,9 @@ const tags = (state = INITIAL_STATE, action) => {
     switch (action.type) {
 
         case ADD_TAGS:
-        console.log(action.payload.tags)
             return {
                 ...state,
-                tags: [...action.payload.tags.data]
+                tags: [...action.payload.tags]
             };
 
         default:

@@ -14,10 +14,14 @@ export default class Linky extends Component {
 
     componentDidMount(){
         const {q,tag,page}=this.props.match.params;
-        if(q) store.dispatch(addQueryString(q));
+        console.log(this.props.match.params)
 
+        if(q) store.dispatch(addQueryString(q));
         if(tag) store.dispatch(addQueryTag(tag));
-        if(page) store.dispatch(addCurrentPage(page));
+       
+        //if no page give default to page 1
+        (page) ?store.dispatch(addCurrentPage(page)): this.props.history.push('/linky?page=1');
+        
     }
 
     render() {

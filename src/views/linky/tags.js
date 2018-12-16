@@ -8,7 +8,7 @@ import Header from '../../components/header'
 import { PlusIcon } from '../../components/icons';
 
 
-import {getTags} from '../../utils/api'
+import {getAllTags} from '../../utils/api'
 import {  addTags} from '../../actions/tags';
 
 
@@ -20,8 +20,7 @@ import {  addTags} from '../../actions/tags';
 }
 
 async componentDidMount(){
-const response =await getTags();
-console.log(response);
+const response =await getAllTags();
 this.props.addTags(response.data)
 }
 
@@ -40,10 +39,8 @@ this.props.addTags(response.data)
 
       <div className="block-set__content">
       {this.props.tags.map(tag => (
-         <button className="tag tag-linky tag--xsm tag-linky--xsm">{tag.tag}</button>
+         <button className="tag tag-linky tag--xsm tag-linky--xsm" key={tag.id}>{tag.tag}</button>
           ))}
-         {/* <button className="tag tag-linky tag--xsm tag-linky--xsm">Machine Learning</button>
-         <button className="tag tag-linky tag--xsm tag-linky--xsm">Agile</button> */}
       </div>
 
     </div>
