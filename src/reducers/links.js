@@ -1,20 +1,20 @@
 
 import {
-    ADD_TAGS
-} from '../actions/tags';
+    ADD_LINKS
+} from '../actions/links';
 
 const INITIAL_STATE = {
-tags:[]
+links:[]
 };
 
 const tags = (state = INITIAL_STATE, action) => {
 
     switch (action.type) {
 
-        case ADD_TAGS:
+        case ADD_LINKS:
             return {
                 ...state,
-                tags: action.payload.tags
+                links: action.payload.links
             };
 
         default:

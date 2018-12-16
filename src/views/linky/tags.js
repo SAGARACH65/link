@@ -18,11 +18,6 @@ export default class Linky extends Component {
         </button>
       </div>
       <div className="block-set__content">
-        {/* <div className="no-content-wrapper">
-          <div className="no-content">
-            <div className="no-content__text">Currently no team members added.</div>
-          </div>
-        </div> */}
          <button className="tag tag-linky tag--xsm tag-linky--xsm">React</button>
          <button className="tag tag-linky tag--xsm tag-linky--xsm">Machine Learning</button>
          <button className="tag tag-linky tag--xsm tag-linky--xsm">Agile</button>

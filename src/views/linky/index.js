@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 
 import Header from '../../components/header'
-import Links from './links'
+import Body from './body'
 export default class Linky extends Component {
     render() {
         return (
             <React.Fragment>
                 <Header />
-<Links/>
+<Body/>
             </React.Fragment>
         )
     }

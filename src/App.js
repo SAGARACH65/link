@@ -13,7 +13,6 @@ class App extends Component {
         <BrowserRouter >
           <Switch>
             <Route path='/linky' exact component={Linky} />
-            {/* <Route path='/todos' component={Todos} /> */}
           </Switch>
         </BrowserRouter>
       </Provider>
