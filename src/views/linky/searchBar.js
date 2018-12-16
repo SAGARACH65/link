@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 
+// import {  } from '../../actions';
 
 export default class SearchBar extends Component {
     render() {

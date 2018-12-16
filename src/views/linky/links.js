@@ -1,9 +1,22 @@
 
-import React, { Component } from 'react'
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import React, { Component } from 'react';
 
-import SearchBar from './searchBar'
+import SearchBar from './searchBar';
 
-export default class Links extends Component {
+import { addLinks } from '../../actions/links';
+
+ class Links extends Component {
+
+  static propTypes = {
+    addLinks: PropTypes.func.isRequired, 
+}
+
+ async  componentDidMount(){
+// let response=await get
+  }
+
     render() {
         return (
 <React.Fragment>
@@ -32,4 +45,10 @@ export default class Links extends Component {
         )
     }
 }
+
+const mapDispatchToProps = dispatch => ({
+  addLinks: links => { dispatch(addLinks(links)) }
+});
+
+export default connect(null, mapDispatchToProps)(Links);
 
