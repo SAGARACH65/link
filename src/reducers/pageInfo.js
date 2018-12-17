@@ -26,6 +26,7 @@ const pageInfo = (state = INITIAL_STATE, action) => {
       };
 
     case ADD_CURRENT_PAGE:
+    console.log(action.payload.currentPage)
       return {
         ...state,
         currentPage: action.payload.currentPage

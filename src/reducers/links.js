@@ -9,7 +9,7 @@ const tags = (state = INITIAL_STATE, action) => {
     case ADD_LINKS:
       return {
         ...state,
-        links: [...state.links, ...action.payload.links]
+        links: [...action.payload.links]
       };
 
     default:

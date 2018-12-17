@@ -1,0 +1,1 @@
+export const ENTRIES_IN_A_PAGE=2;

@@ -5,6 +5,7 @@ import React, { Component } from "react";
 import SearchBar from "./searchBar";
 import LinkDetails from "./linkDetails";
 
+import { ENTRIES_IN_A_PAGE } from "../../constants/appConstants";
 import { getAllLinks } from "../../utils/api";
 import { addLinks } from "../../actions/links";
 import { addCurrentPage } from "../../actions/pageInfo";
@@ -17,8 +18,21 @@ class Links extends Component {
     addCurrentPage: PropTypes.func.isRequired
   };
 
+  constructor(props) {
+    super(props);
+
+    //this flag is used for a condition to remove the see  More button when we have 5 only data in the server and resposne is []
+    this.state = {
+      isDataAvailable: true
+    };
+  }
+
   async fetchData(currentPage) {
     const response = await getAllLinks(currentPage);
+
+    if (response.data.length !== currentPage * ENTRIES_IN_A_PAGE)
+      this.setState({ isDataAvailable: false });
+
     this.props.addLinks(response.data);
   }
 
@@ -27,8 +41,9 @@ class Links extends Component {
   }
 
   clickHandler = () => {
-    this.props.addCurrentPage();
-    this.fetchData(this.props.currentPage + 1);
+    const { currentPage } = this.props;
+    this.props.addCurrentPage(parseInt(currentPage) + 1);
+    this.fetchData(parseInt(currentPage) + 1);
   };
 
   render() {
@@ -48,11 +63,12 @@ class Links extends Component {
                 ))}
               </ul>
             </div>
-            {this.props.links.length % 5 === 0 && (
-              <p className="see-more-text" onClick={this.clickHandler}>
-                See More..
-              </p>
-            )}
+            {this.props.links.length % ENTRIES_IN_A_PAGE === 0 &&
+              this.state.isDataAvailable && (
+                <p className="see-more-text" onClick={this.clickHandler}>
+                  See More..
+                </p>
+              )}
           </div>
         </div>
       </React.Fragment>

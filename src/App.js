@@ -12,7 +12,7 @@ class App extends Component {
       <Provider store={store}>
         <BrowserRouter>
           <Switch>
-            <Route path="/linky/:q?/:page?/:tag?" exact component={Linky} />
+            <Route path="/linky" exact component={Linky} />
           </Switch>
         </BrowserRouter>
       </Provider>
